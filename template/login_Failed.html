@@ -1,0 +1,96 @@
+<style type="text/css">
+@keyframes fadeIn {
+    0% {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+body {
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    margin: 0;
+}
+
+.form-container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+#login {
+    display: inline-block;
+    animation: fadeIn 1.5s ease-in-out;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #dc3545;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+}
+
+.form-control {
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: 0.3s ease-in-out;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.form-control:focus {
+    outline: none;
+    border: 2px solid #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.3);
+}
+
+.btn-custom {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: white;
+    border: none;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(to right, #0056b3, #004085);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+</style>
+
+<div class="form-container">
+    <h1 id="login">Login Failed</h1>
+
+    <form method="post" action="/login_process/">
+        {% csrf_token %}
+
+        <div class="mb-3">
+        	<label>Numbers :</label>
+            <input type="number" name="customer_mobile" placeholder="Enter Your Number.." class="form-control text-center">
+        </div>
+        	<br>
+        <div class="mb-3">
+        	<label>Password :</label>
+            <input type="password" name="customer_password" placeholder="Enter Your Password.." class="form-control text-center">
+        </div>
+        	<br>
+        
+
+        <div class="mb-3 text-center">
+            <button class="btn btn-custom">Login</button>
+        </div>
+    </form>
+</div>
