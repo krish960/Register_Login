@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+       
+        .form-container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .btn-custom {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="form-container">
+                <h2 class="text-center mb-4">Edit Details</h2>
+                <form method="post" action="/update_file/">
+                    {% csrf_token %}
+    <input type="hidden" name="id" value="{{edit.id}}">
+
+                    <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">User-name</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="customer_name" placeholder="Enter your name" value="{{edit.customer_name}}" >
+                    </div>
+                     <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="customer_email" placeholder="Enter your email" value="{{edit.customer_email}}" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">First-Name</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="first_name" placeholder="Enter your name" value="{{edit.first_name}}" >
+                    </div>
+                     <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">Last-Name</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="last_name" placeholder="Enter your last_name" value="{{edit.last_name}}" >
+                    </div>
+                     <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">Organization</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="Organization" placeholder="Enter your Organization" value="{{edit.Organization}}" >
+                    </div>
+
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-custom">Update</button>
+                    </div>
+                </form>
+               
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -3,98 +3,175 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome Box</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Organization Table</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
     <style>
         body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+            font-family: 'Arial', sans-serif;
             background: linear-gradient(135deg, #667eea, #764ba2);
             margin: 0;
-            font-family: 'Arial', sans-serif;
+            padding: 20px;
             color: #fff;
+            text-align: center;
         }
-        .welcome-box {
-            width: 350px;
-            padding: 25px;
+        h2 {
+            margin-bottom: 20px;
+        }
+        .table-container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            margin: auto;
+            width: 80%;
+            max-width: 800px;
+            display: none; 
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: white;
+            color: black;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #667eea;
+            color: white;
+        }
+        tr:hover {
+            background: #f4f4f4;
+        }
+        .chart-container {
+            width: 80%;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            color: #333;
-            font-size: 18px;
         }
-        .icon-container {
-            margin-top: 15px;
-            font-size: 30px;
-            color: #fff;
-            cursor: pointer;
-            position: relative;
-        }
-        .icon-container a {
-            color: #fff;
-            text-decoration: none;
-        }
-        .icon-container:hover {
-            color: red;
-        }
-        .tooltip {
-            position: absolute;
-            bottom: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease-in-out;
-        }
-        .icon-container:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
-        }
-        .link-container {
+        .back-button {
+            display: none;
             margin-top: 20px;
-        }
-        .link-container a {
-
-            text-decoration: none;
-            font-size: 18px;
             padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.5);
+            background: #ff9f40;
+            color: black;
+            font-size: 16px;
             border-radius: 8px;
-            transition: background 0.3s;
+            cursor: pointer;
+            border: none;
         }
-        .link-container a:hover {
-            background: rgba(255, 255, 255, 0.4);
+        .back-button:hover {
+            background: #ff7800;
         }
     </style>
 </head>
 <body>
 
-    <div class="welcome-box">
-        <h2>Welcome, {{ customer_name }}</h2>
-        <p>Your Mobile: {{ customer_mobile }}</p>
-        <p>Pasword : {{customer_password}}</p>
-        <div class="link-container">
-        <a href="/list_Register">Show All Register</a>
-    </div>
+    <h2>Organization Details</h2>
+
+    <!-- Back Button -->
+    <button class="back-button" id="backButton">Back to All Organizations</button>
+
+    <div class="chart-container">
+        <h2>User Distribution by Organization</h2>
+        <canvas id="orgChart"></canvas>
     </div>
 
-    <div class="icon-container">
-        <a href="/">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span class="tooltip">logout</span>
-        </a>
+    <div class="table-container" id="tableContainer">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Organization</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                {% for user in users %}
+                <tr data-organization="{{ user.Organization }}">
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.customer_name }}</td>
+                    <td>{{ user.customer_email }}</td>
+                    <td>{{ user.first_name }}</td>
+                    <td>{{ user.last_name }}</td>
+                    <td>{{ user.Organization }}</td>
+                    <td>
+                        <a href="/edit_Organization/?id={{ user.id }}" class="btn btn-primary btn-sm">Edit</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
-    
+    <script>
+        var organizationData = {{ organization_counts|safe }};
+        var labels = Object.keys(organizationData);
+        var values = Object.values(organizationData);
+
+        var ctx = document.getElementById('orgChart').getContext('2d');
+        var orgChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'User Count',
+                    data: values,
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                onClick: function(event, elements) {
+                    if (elements.length > 0) {
+                        var clickedIndex = elements[0].index;
+                        var selectedOrg = labels[clickedIndex];
+                        filterTable(selectedOrg);
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        function filterTable(organization) {
+            var rows = document.querySelectorAll("#userTableBody tr");
+            rows.forEach(row => {
+                if (row.getAttribute("data-organization") === organization) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            });
+
+            document.getElementById("tableContainer").style.display = "block"; 
+            document.getElementById("backButton").style.display = "block"; 
+            document.querySelector(".chart-container").style.display = "none"; 
+        }
+
+        document.getElementById("backButton").addEventListener("click", function() {
+            document.getElementById("tableContainer").style.display = "none"; 
+            document.querySelector(".chart-container").style.display = "block"; 
+            this.style.display = "none"; 
+        });
+    </script>
+
 </body>
 </html>

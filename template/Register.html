@@ -26,32 +26,45 @@
     <div class="row justify-content-center">
         <div class="col-md-5">
             <div class="form-container">
-                <h2 class="text-center mb-4">Create Account</h2>
+                <h2 class="text-center mb-4">User sign Up</h2>
                 <form method="post" action="/create_account/">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="id_customer_name" class="form-label">Name</label>
+                        <label for="id_customer_name" class="form-label">Username</label>
                         <input type="text" class="form-control" id="id_customer_name" name="customer_name" placeholder="Enter your name" required>
                     </div>
                     <div class="mb-3">
                         <label for="id_customer_mobile" class="form-label">Mobile</label>
                         <input type="text" class="form-control" id="id_customer_mobile" name="customer_mobile" placeholder="Enter your mobile number" required>
                     </div>
-                    <div class="mb-3">
+                     <div class="mb-3">
                         <label for="id_customer_email" class="form-label">Email</label>
                         <input type="email" class="form-control" id="id_customer_email" name="customer_email" placeholder="Enter your email address" required>
                     </div>
+                     <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">First-Name</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="first_name" placeholder="Enter your name"  >
+                    </div>
+                     <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">Last-Name</label>
+                        <input type="text" class="form-control" id="id_customer_name" name="last_name" placeholder="Enter your name"  >
+                    </div>
+                     <div class="mb-3">
+                        <label for="id_customer_name" class="form-label">Organization</label>
+                        <input type="text" class="form-control" id="Organization" name="Organization" placeholder="Enter your Organization"  >
+                    </div>
+                   
                     <div class="mb-3">
                         <label for="id_customer_password" class="form-label">Password</label>
                         <input type="password" class="form-control" id="id_customer_password" name="customer_password" placeholder="Enter your password" required>
                     </div>
                     <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-custom">Create Account</button>
+                        <button type="submit" class="btn btn-primary btn-custom">sign up Account</button>
                     </div>
                 </form>
-                <p class="text-center mt-3">
+                <!-- <p class="text-center mt-3">
                     Already have an account? <a href="/login" class="btn btn-outline-secondary btn-sm">Login</a>
-                </p>
+                </p> -->
             </div>
         </div>
     </div>

@@ -1,11 +1,8 @@
 from django.contrib import admin
-
-# Register your models here.
-from website import models
-# Register your models here.
-
-# admin.site.register(models.TaskType)
+from django.db.models import Count
+from .models import Customer
 
 class CustomerAdmin(admin.ModelAdmin):
-	list_display=("customer_name","customer_mobile","customer_email","customer_password")
-admin.site.register(models.Customer,CustomerAdmin)
+    list_display = ('id', 'customer_name', 'customer_email', 'customer_mobile', 'first_name', 'last_name', 'Organization')  
+    search_fields = ('id', 'customer_email')
+admin.site.register(Customer, CustomerAdmin)
