@@ -6,6 +6,10 @@ from .models import Customer
 
 # Create your views here.
 
+
+def index(req):
+    return render(req,"index.html")
+
 def Register(req):
 	return render(req,"Register.html")
 
@@ -37,7 +41,7 @@ def login_process(req):
     customer = list(customer)
 
     if len(customer) == 0:
-        return render(req, "login_Failed.html")
+        return render(req, "login.html")
     else:
         req.session['customer_id'] = customer[0]['id']
         req.session['customer_name'] = customer[0]['customer_name']

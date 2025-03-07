@@ -18,8 +18,11 @@ from django.contrib import admin
 from django.urls import path
 from website import views
 
+
 urlpatterns = [
-    path('',views.Register),
+    
+    path("",views.index),
+    path('Register/',views.Register),
     path('create_account/',views.create_account),
     path('login/',views.login),
     path('login_process/',views.login_process),
@@ -28,4 +31,5 @@ urlpatterns = [
     path('edit_Organization/',views.edit_Organization),
     path('update_file/',views.update_file),
     path('admin/', admin.site.urls),
+
 ]
