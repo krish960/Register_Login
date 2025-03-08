@@ -82,16 +82,34 @@ def list_Register(req):
     return JsonResponse(query, safe=False)  
 
 def edit_Organization(req):
-    edit=models.Customer.objects.get(id=req.GET['id'])
-    obj={"edit":edit}
-    return render(req,"edit_Organization.html",obj)
+    if 'customer_id' not in req.session:
+        return redirect('/login')
+
+    logged_in_user_id = req.session['customer_id']
+    user_to_edit = get_object_or_404(Customer, id=req.GET['id'])
+
+    if user_to_edit.id != logged_in_user_id:
+        return JsonResponse({"error": "You are not authorized to edit this account"}, status=403)
+
+    return render(req, "edit_Organization.html", {"edit": user_to_edit})
+
 
 def update_file(req):
-    update=models.Customer.objects.get(id=req.POST['id'])
-    update.customer_name=req.POST['customer_name']
-    update.customer_email=req.POST['customer_email']
-    update.first_name=req.POST['first_name']
-    update.last_name=req.POST['last_name']
-    update.Organization=req.POST['Organization']
-    update.save()
+    if 'customer_id' not in req.session:
+        return redirect('/login')
+
+    logged_in_user_id = req.session['customer_id']
+    user_to_update = get_object_or_404(Customer, id=req.POST['id'])
+
+    if user_to_update.id != logged_in_user_id:
+        return JsonResponse({"error": "You are not authorized to update this account"}, status=403)
+
+    user_to_update.customer_name = req.POST['customer_name']
+    user_to_update.customer_email = req.POST['customer_email']
+    user_to_update.first_name = req.POST['first_name']
+    user_to_update.last_name = req.POST['last_name']
+    user_to_update.Organization = req.POST['Organization']
+    user_to_update.save()
+
     return redirect("/home")
+

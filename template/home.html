@@ -9,28 +9,26 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
 
     <style>
-        body {
+         body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #667eea, #764ba2);
-            margin: 0;
-            padding: 20px;
-            color: #fff;
-            text-align: center;
+           
         }
+        
 
         h2 {
-            font-size: 2.5em;
+            font-size: 2.2em;
             margin-bottom: 20px;
             font-weight: bold;
         }
 
         .table-container {
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             padding: 20px;
             border-radius: 12px;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
             margin: auto;
-            width: 90%;
+            width: 95%;
             max-width: 1000px;
             display: none; 
             transition: all 0.3s ease-in-out;
@@ -54,7 +52,7 @@
         }
 
         th {
-            background: #667eea;
+            background: #4f62d1;
             color: white;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -74,10 +72,12 @@
             font-weight: bold;
             background: #ff9f40;
             transition: 0.3s;
+            display: inline-block;
         }
 
         .btn:hover {
             background: #ff7800;
+            transform: scale(1.05);
         }
 
         .chart-container {
@@ -85,10 +85,11 @@
             max-width: 1000px;
             margin: 30px auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 12px;
-            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease-in-out;
+            margin-top: 100px;
         }
 
         .back-button {
@@ -96,7 +97,7 @@
             margin-top: 20px;
             padding: 12px 20px;
             background: #ff9f40;
-            color: black;
+            color: white;
             font-size: 16px;
             border-radius: 8px;
             cursor: pointer;
@@ -106,6 +107,7 @@
 
         .back-button:hover {
             background: #ff7800;
+            transform: translateY(-2px);
         }
 
         @media screen and (max-width: 768px) {
@@ -113,19 +115,22 @@
                 padding: 10px;
                 font-size: 14px;
             }
+            .btn {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
         }
     </style>
 </head>
 <body>
-
-
 
     <div class="chart-container">
         <h2 style="color: black;">User Distribution by Organization</h2>
         <canvas id="orgChart"></canvas>
     </div>
 
-    <div class="table-container mb-3" id="tableContainer">
+
+    <div class="table-container" id="tableContainer">
         <table>
             <thead>
                 <tr>
@@ -148,7 +153,9 @@
                     <td>{{ user.last_name }}</td>
                     <td>{{ user.Organization }}</td>
                     <td>
-                        <a href="/edit_Organization/?id={{ user.id }}" class="btn">Edit</a>
+                        {% if user.id == request.session.customer_id %}
+                                     <a href="/edit_Organization/?id={{ user.id }}" class="btn btn-primary">Edit</a>
+                        {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
