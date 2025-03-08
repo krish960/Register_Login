@@ -3,16 +3,13 @@ from website import models
 from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .models import Customer
-
 # Create your views here.
-
 
 def index(req):
     return render(req,"index.html")
 
 def Register(req):
 	return render(req,"Register.html")
-
 
 def create_account(req):
 	customer = models.Customer(
@@ -22,15 +19,13 @@ def create_account(req):
 		customer_password=req.POST['customer_password'],
         first_name=req.POST['first_name'],
         last_name=req.POST['last_name'],
-        Organization=req.POST['Organization']
-
+        Organization=req.POST['Organization'],
 	)
 	customer.save()
 	return redirect("/home")
 
 def login(req):
 	return render(req,"login.html")
-
 
 def login_process(req):
     customer = models.Customer.objects.filter(
@@ -50,7 +45,6 @@ def login_process(req):
         req.session['first_name'] = customer[0]['first_name']
         req.session['last_name'] = customer[0]['last_name']
         req.session['Organization'] = customer[0]['Organization']
-
 
         return redirect("/home") 
 
@@ -75,8 +69,6 @@ def home(req):
     }
     return render(req, "home.html", context)
 
-
-
 def list_Register(req):
     query = list(Customer.objects.all().values())  
     return JsonResponse(query, safe=False)  
@@ -92,7 +84,6 @@ def edit_Organization(req):
         return JsonResponse({"error": "You are not authorized to edit this account"}, status=403)
 
     return render(req, "edit_Organization.html", {"edit": user_to_edit})
-
 
 def update_file(req):
     if 'customer_id' not in req.session:
@@ -112,4 +103,3 @@ def update_file(req):
     user_to_update.save()
 
     return redirect("/home")
-
