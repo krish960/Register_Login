@@ -22,7 +22,7 @@ def create_account(req):
         Organization=req.POST['Organization'],
 	)
 	customer.save()
-	return redirect("/home")
+	return redirect("/login")
 
 def login(req):
 	return render(req,"login.html")
