@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from website import views
+from admins import views as admins
+
 
 
 urlpatterns = [
@@ -31,5 +33,9 @@ urlpatterns = [
     path('edit_Organization/',views.edit_Organization),
     path('update_file/',views.update_file),
     path('admin/', admin.site.urls),
+
+    path('addmin/',admins.dashbord),
+    path('addmin/Organizations/',admins.Organizations),
+    
 
 ]

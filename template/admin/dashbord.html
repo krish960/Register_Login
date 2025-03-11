@@ -1,0 +1,117 @@
+{% include "admin/addmin.html" %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard mt-3">
+        <div class="card earning">
+            <h3>Register</h3>
+            <p>0</p>
+        </div>
+        <div class="card">
+            <h3>Count</h3>
+            <p>0</p>
+        </div>
+        <div class="card">
+            <h3>Organizations List</h3>
+            <p><a class="nav-link" href="/addmin/Organizations">Organizations List</a>
+</p>
+        </div>
+        <div class="card">
+            <h3>Rating</h3>
+            <p>8.5 ⭐</p>
+        </div>
+
+        <div class="chart-container">
+            <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="pie-chart">
+            <canvas id="pieChart"></canvas>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+<style type="text/css">
+    body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.chart-container {
+    grid-column: span 2;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.pie-chart {
+    grid-column: span 1;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+
+</style>
+
+<script type="text/javascript">
+    const ctx = document.getElementById('barChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+        datasets: [
+            {
+                label: '2019',
+                data: [10, 20, 30, 40, 50, 60, 70, 80],
+                backgroundColor: 'orange'
+            },
+            {
+                label: '2020',
+                data: [15, 25, 35, 45, 55, 65, 75, 85],
+                backgroundColor: 'navy'
+            }
+        ]
+    }
+});
+
+const pieCtx = document.getElementById('pieChart').getContext('2d');
+new Chart(pieCtx, {
+    type: 'doughnut',
+    data: {
+        labels: ['Progress'],
+        datasets: [{
+            data: [45, 55],
+            backgroundColor: ['#FFA500', '#EEE']
+        }]
+    }
+});
+
+</script>
